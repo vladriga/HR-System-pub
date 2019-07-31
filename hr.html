@@ -23,7 +23,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-input class="low" v-model="row.item.createdDate" size="sm" />
+                            <b-form-input v-model="row.item.createdDate" size="sm" />
                         </template>
                     </template>
                     <template slot="namelastname" slot-scope="data">
@@ -31,8 +31,8 @@
                             <div>{{data.item.name}}<br />{{data.item.lastName}}</div>
                         </template>
                         <template v-else>
-                            <b-form-input v-model="data.item.name" class="low" id="input-name" size="sm"></b-form-input>
-                            <b-form-input v-model="data.item.lastName" class="low space-top" size="sm"></b-form-input>
+                            <b-form-input v-model="data.item.name" id="input-name" size="sm"></b-form-input>
+                            <b-form-input v-model="data.item.lastName" size="sm"></b-form-input>
                         </template>
                     </template>
                     <template slot="gender" slot-scope="row">
@@ -40,7 +40,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-select v-model="row.item.gender" class="low" size="sm">
+                            <b-form-select v-model="row.item.gender" size="sm">
                                 <option value="M">M</option>
                                 <option value="F">F</option>
                             </b-form-select>
@@ -64,7 +64,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-input class="low" type="datetime" v-model="row.item.interviewDate" size="sm" />
+                            <b-form-input type="datetime" v-model="row.item.interviewDate" size="sm" />
                         </template>
                     </template>
                     <template slot="contact" slot-scope="row">
@@ -89,19 +89,19 @@
                             <b-container fluid>
                                 <b-row>
                                     <b-col sm="3"><label for="contact-skype"><b>skype:</b></label></b-col>
-                                    <b-col sm="9"><b-form-input id="contact-skype" v-model="row.item.contact.skype" class="low-contact" size="sm"></b-form-input></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-skype" v-model="row.item.contact.skype" size="sm"></b-form-input></b-col>
                                 </b-row>
                                 <b-row>
                                     <b-col sm="3"><label for="contact-email"><b>email:</b></label></b-col>
-                                    <b-col sm="9"><b-form-input id="contact-email" v-model="row.item.contact.email" class="low-contact" size="sm"></b-form-input></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-email" v-model="row.item.contact.email" size="sm"></b-form-input></b-col>
                                 </b-row>
                                 <b-row>
                                     <b-col sm="3"><label for="contact-phone"><b>phone:</b></label></b-col>
-                                    <b-col sm="9"><b-form-input id="contact-phone" v-model="row.item.contact.phone" class="low-contact" size="sm"></b-form-input></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-phone" v-model="row.item.contact.phone" size="sm"></b-form-input></b-col>
                                 </b-row>
                                 <b-row>
                                     <b-col sm="3"><label for="contact-other"><b>other:</b></label></b-col>
-                                    <b-col sm="9"><b-form-input id="contact-other" v-model="row.item.contact.other" class="low-contact" size="sm"></b-form-input></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-other" v-model="row.item.contact.other" size="sm"></b-form-input></b-col>
                                 </b-row>
                             </b-container>
                         </template>
@@ -111,7 +111,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-select v-model="row.item.position" class="low" size="sm">
+                            <b-form-select v-model="row.item.position" size="sm">
                                 <option>manager</option>
                                 <option>programmer</option>
                                 <option>team lead</option>
@@ -135,7 +135,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-input v-model="row.item.rate" class="low" size="sm"></b-form-input>
+                            <b-form-input v-model="row.item.rate" size="sm"></b-form-input>
                         </template>
                     </template>
                     <template slot="experience" slot-scope="row">
@@ -143,7 +143,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-input v-model="row.item.experience" class="low" size="sm"></b-form-input>
+                            <b-form-input v-model="row.item.experience" size="sm"></b-form-input>
                         </template>
                     </template>
                     <template slot="potentialProjects" slot-scope="row">
@@ -151,7 +151,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-input v-model="row.item.potentialProjects" class="low" size="sm"></b-form-input>
+                            <b-form-input v-model="row.item.potentialProjects" size="sm"></b-form-input>
                         </template>
                     </template>
                     <template slot="status" slot-scope="row">
@@ -159,7 +159,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-select v-model="row.item.status" class="low" size="sm">
+                            <b-form-select v-model="row.item.status" size="sm">
                                 <option>pending</option>
                                 <option>completed</option>
                             </b-form-select>
@@ -170,7 +170,7 @@
                             {{row.value}}
                         </template>
                         <template v-else>
-                            <b-form-input v-model="row.item.notes" class="low" size="sm"></b-form-input>
+                            <b-form-input v-model="row.item.notes" size="sm"></b-form-input>
                         </template>
                     </template>
                     <template slot="action" slot-scope="row">
@@ -182,6 +182,9 @@
                     </template>
                 </b-table>
             </div>
+            <b-container fluid>
+                <b-button v-on:click="add" v-bind:class="[class_add_btn]" variant="info" size="sm">Add CV</b-button>
+            </b-container>
         </template>
     </div>
 </body>

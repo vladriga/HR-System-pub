@@ -88,6 +88,7 @@ var hrPlace = new Vue({
             { 'key': 'action', 'label': 'Action' }
         ],
         'intervieweerOptions': ['Eliza', 'Eugene', 'Laura', 'Andrew'],
+        'class_add_btn': '[btn btn-info]',
     },
     'methods': {
         'deleteRow': function (personId) {
@@ -103,6 +104,44 @@ var hrPlace = new Vue({
         'edit': function (item, index) {
             hrPlace.persons.forEach((cvsItem, cvsIndex) => cvsItem.isEditMode = (index === cvsIndex ? cvsItem.isEditMode : false));
             item.isEditMode = !item.isEditMode;
+        },
+        'add': function (event) {
+            //disable button until new row added in DB
+            event.target.setAttribute('disabled', true);
+            hrPlace.class_add_btn = ['btn btn-info disabled'];
+
+            hrPlace.lastIndex = persons.length;
+            hrPlace.persons.push({
+                'personId': 0,
+                'name': '',
+                'lastName': '',
+                'gender': 'M',
+                'createdDate': new Date().toLocaleDateString(),
+                'isCvUploaded': false,
+                'interviewDate': '',
+                'contact': {
+                    'skype': '',
+                    'email': '',
+                    'phone': '',
+                    'other': ''
+                },
+                'position': '',
+                'diatomInterviewees': [],
+                'rate': 0,
+                'experience': '',
+                'potentialProjects': '',
+                'status': 'pending',
+                'notes': '',
+                'isEditMode': true
+            });
+            // set focus into Name column
+            setTimeout(() => { let el = document.querySelectorAll('#input-name'); if (el[el.length - 1] !== null) el[el.length - 1].focus(); }, 400);
+            // send data into a DB emulation (getting prsonId back)
+            setTimeout(() => {
+                event.target.removeAttribute('disabled');
+                hrPlace.class_add_btn = ['btn btn-info'];
+                persons[persons.length - 1]['personId'] = persons.length;
+            }, 3000);
         }
     }
 });
