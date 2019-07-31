@@ -84,7 +84,20 @@ var hrPlace = new Vue({
             { 'key': 'experience', 'label': 'Experience' },
             { 'key': 'potentialProjects', 'label': 'Potential Projects' },
             { 'key': 'status', 'label': 'Status' },
-            { 'key': 'notes', 'label': 'Notes' }
+            { 'key': 'notes', 'label': 'Notes' },
+            { 'key': 'action', 'label': 'Action' }
         ]
+    },
+    'methods': {
+        'deleteRow': function (personId) {
+            if (confirm('Delete this row?')) {
+                for (let i = 0; i < hrPlace.persons.length; i++) {
+                    if (hrPlace.persons[i].personId === personId) {
+                        hrPlace.persons.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
     }
 });

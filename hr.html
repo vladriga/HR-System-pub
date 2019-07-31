@@ -76,6 +76,9 @@
                     <template slot="notes" slot-scope="row">
                         {{row.value}}
                     </template>
+                    <template slot="action" slot-scope="row">
+                        <b-button size="sm" v-on:click="deleteRow(row.item.personId)" variant="info">Delete</b-button>
+                    </template>
                 </b-table>
             </div>
         </template>
