@@ -86,7 +86,8 @@ var hrPlace = new Vue({
             { 'key': 'status', 'label': 'Status' },
             { 'key': 'notes', 'label': 'Notes' },
             { 'key': 'action', 'label': 'Action' }
-        ]
+        ],
+        'intervieweerOptions': ['Eliza', 'Eugene', 'Laura', 'Andrew'],
     },
     'methods': {
         'deleteRow': function (personId) {
@@ -98,6 +99,10 @@ var hrPlace = new Vue({
                     }
                 }
             }
+        },
+        'edit': function (item, index) {
+            hrPlace.persons.forEach((cvsItem, cvsIndex) => cvsItem.isEditMode = (index === cvsIndex ? cvsItem.isEditMode : false));
+            item.isEditMode = !item.isEditMode;
         }
     }
 });

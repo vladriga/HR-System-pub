@@ -14,70 +14,171 @@
     <div id="hrSystem">
         <template>
             <div>
-                <b-table id="personTbl" :items="persons" :fields="fields" bordered caption-top striped>
+                <b-table id="personTbl" :items="persons" :fields="fields" @row-dblclicked="edit" bordered caption-top striped>
                     <template slot="table-caption">
                         <strong>HR system</strong>
                     </template>
                     <template slot="createdDate" slot-scope="row">
-                        {{row.value}}
-                    </template>
-                    <template slot="namelastname" slot-scope="data">
-                        <div>{{data.item.name}}<br />{{data.item.lastName}}</div>
-                    </template>
-                    <template slot="gender" slot-scope="row">
-                        {{row.value}}
-                    </template>
-                    <template slot="cv" slot-scope="row">
-                        <template v-if="row.item.isCvUploaded">
-                            Uploaded
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
                         </template>
                         <template v-else>
-                            Pending
+                            <b-form-input class="low" v-model="row.item.createdDate" size="sm" />
+                        </template>
+                    </template>
+                    <template slot="namelastname" slot-scope="data">
+                        <template v-if="!data.item.isEditMode">
+                            <div>{{data.item.name}}<br />{{data.item.lastName}}</div>
+                        </template>
+                        <template v-else>
+                            <b-form-input v-model="data.item.name" class="low" id="input-name" size="sm"></b-form-input>
+                            <b-form-input v-model="data.item.lastName" class="low space-top" size="sm"></b-form-input>
+                        </template>
+                    </template>
+                    <template slot="gender" slot-scope="row">
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-select v-model="row.item.gender" class="low" size="sm">
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                            </b-form-select>
+                        </template>
+                    </template>
+                    <template slot="cv" slot-scope="row">
+                        <template v-if="!row.item.isEditMode">
+                            <template v-if="row.item.isCvUploaded">
+                                Uploaded
+                            </template>
+                            <template v-else>
+                                Pending
+                            </template>
+                        </template>
+                        <template v-else>
+                            <b-button variant="primary" v-on:click="downloadCvClick()" size="sm">Upload</b-button>
                         </template>
                     </template>
                     <template slot="interviewDate" slot-scope="row">
-                        {{row.value}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-input class="low" type="datetime" v-model="row.item.interviewDate" size="sm" />
+                        </template>
                     </template>
                     <template slot="contact" slot-scope="row">
-                        <template v-if="row.value['skype'] != null">
-                            <b>skype:</b>&nbsp;{{row.value['skype']}}
-                            <br />
+                        <template v-if="!row.item.isEditMode">
+                            <template v-if="row.value['skype'] != null">
+                                <b>skype:</b>&nbsp;{{row.value['skype']}}
+                                <br />
+                            </template>
+                            <template v-if="row.value['email'] != null">
+                                <b>email:</b>&nbsp;{{row.value['email']}}
+                                <br />
+                            </template>
+                            <template v-if="row.value['phone'] != null">
+                                <b>phone:</b>&nbsp;{{row.value['phone']}}
+                                <br />
+                            </template>
+                            <template v-if="row.value['other'] != null">
+                                <b>other:</b>&nbsp;{{row.value['other']}}
+                            </template>
                         </template>
-                        <template v-if="row.value['email'] != null">
-                            <b>email:</b>&nbsp;{{row.value['email']}}
-                            <br />
-                        </template>
-                        <template v-if="row.value['phone'] != null">
-                            <b>phone:</b>&nbsp;{{row.value['phone']}}
-                            <br />
-                        </template>
-                        <template v-if="row.value['other'] != null">
-                            <b>other:</b>&nbsp;{{row.value['other']}}
+                        <template v-else>
+                            <b-container fluid>
+                                <b-row>
+                                    <b-col sm="3"><label for="contact-skype"><b>skype:</b></label></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-skype" v-model="row.item.contact.skype" class="low-contact" size="sm"></b-form-input></b-col>
+                                </b-row>
+                                <b-row>
+                                    <b-col sm="3"><label for="contact-email"><b>email:</b></label></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-email" v-model="row.item.contact.email" class="low-contact" size="sm"></b-form-input></b-col>
+                                </b-row>
+                                <b-row>
+                                    <b-col sm="3"><label for="contact-phone"><b>phone:</b></label></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-phone" v-model="row.item.contact.phone" class="low-contact" size="sm"></b-form-input></b-col>
+                                </b-row>
+                                <b-row>
+                                    <b-col sm="3"><label for="contact-other"><b>other:</b></label></b-col>
+                                    <b-col sm="9"><b-form-input id="contact-other" v-model="row.item.contact.other" class="low-contact" size="sm"></b-form-input></b-col>
+                                </b-row>
+                            </b-container>
                         </template>
                     </template>
                     <template slot="position" slot-scope="row">
-                        {{row.value}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-select v-model="row.item.position" class="low" size="sm">
+                                <option>manager</option>
+                                <option>programmer</option>
+                                <option>team lead</option>
+                                <option>junior programmer</option>
+                            </b-form-select>
+                        </template>
                     </template>
                     <template slot="diatomInterviewees" slot-scope="row">
-                        {{row.value.join(', ')}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value.join(', ')}}
+                        </template>
+                        <template v-else>
+                            <b-form-checkbox-group id="checkbox-group-1"
+                                                   v-model="row.item.diatomInterviewees"
+                                                   :options="intervieweerOptions"
+                                                   name="flavour-1" size="sm"></b-form-checkbox-group>
+                        </template>
                     </template>
                     <template slot="rate" slot-scope="row">
-                        {{row.value}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-input v-model="row.item.rate" class="low" size="sm"></b-form-input>
+                        </template>
                     </template>
                     <template slot="experience" slot-scope="row">
-                        {{row.value}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-input v-model="row.item.experience" class="low" size="sm"></b-form-input>
+                        </template>
                     </template>
                     <template slot="potentialProjects" slot-scope="row">
-                        {{row.value}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-input v-model="row.item.potentialProjects" class="low" size="sm"></b-form-input>
+                        </template>
                     </template>
                     <template slot="status" slot-scope="row">
-                        {{row.value}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-select v-model="row.item.status" class="low" size="sm">
+                                <option>pending</option>
+                                <option>completed</option>
+                            </b-form-select>
+                        </template>
                     </template>
                     <template slot="notes" slot-scope="row">
-                        {{row.value}}
+                        <template v-if="!row.item.isEditMode">
+                            {{row.value}}
+                        </template>
+                        <template v-else>
+                            <b-form-input v-model="row.item.notes" class="low" size="sm"></b-form-input>
+                        </template>
                     </template>
                     <template slot="action" slot-scope="row">
-                        <b-button size="sm" v-on:click="deleteRow(row.item.personId)" variant="info">Delete</b-button>
+                        <template v-if="!row.item.isEditMode">
+                            <b-button v-on:click="deleteRow(row.item.personId)" variant="info" size="sm">Delete</b-button>
+                        </template>
+                        <template v-else>
+                        </template>
                     </template>
                 </b-table>
             </div>
