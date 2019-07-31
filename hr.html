@@ -14,7 +14,7 @@
     <div id="hrSystem">
         <template>
             <div>
-                <b-table id="personTbl" :items="persons" :fields="fields" @row-dblclicked="edit" bordered caption-top striped>
+                <b-table id="personTbl" :items="persons" :fields="fields" :filter="filter" @row-dblclicked="edit" bordered caption-top striped>
                     <template slot="table-caption">
                         <strong>HR system</strong>
                     </template>
@@ -183,7 +183,19 @@
                 </b-table>
             </div>
             <b-container fluid>
-                <b-button v-on:click="add" v-bind:class="[class_add_btn]" variant="info" size="sm">Add CV</b-button>
+                <b-row align-h="start">
+                    <b-col cols="1">
+                        <b-button v-on:click="add" v-bind:class="[class_add_btn]" variant="info" size="sm">Add CV</b-button>
+                    </b-col>
+                    <b-col cols="2">
+                        <b-input-group>
+                            Filter: <b-form-input v-model="filter" size="sm" style="margin-left:10px;"></b-form-input>
+                            <b-input-group-append>
+                                <b-button text="Clear filter" v-on:click="filter = null" variant="info" size="sm">X</b-button>
+                            </b-input-group-append>
+                        </b-input-group>
+                    </b-col>
+                </b-row>
             </b-container>
         </template>
     </div>

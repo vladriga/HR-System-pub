@@ -71,24 +71,25 @@ var hrPlace = new Vue({
     'data': {
         'persons': persons,
         'fields': [
-            { 'key': 'personId', 'label': 'Id' },
-            { 'key': 'createdDate', 'label': 'Created Date' },
-            { 'key': 'namelastname', 'label': 'Name' },
-            { 'key': 'gender', 'label': 'Gender' },
+            { 'key': 'personId', 'label': 'Id', 'sortable': true },
+            { 'key': 'createdDate', 'label': 'Created Date', 'sortable': true },
+            { 'key': 'namelastname', 'label': 'Name', 'sortable': true },
+            { 'key': 'gender', 'label': 'Gender', 'sortable': true },
             { 'key': 'cv', 'label': 'CV File' },
-            { 'key': 'interviewDate', 'label': 'Interview Date' },
+            { 'key': 'interviewDate', 'label': 'Interview Date', 'sortable': true },
             { 'key': 'contact', 'label': 'Contact' },
-            { 'key': 'position', 'label': 'Position' },
+            { 'key': 'position', 'label': 'Position', 'sortable': true },
             { 'key': 'diatomInterviewees', 'label': 'Diatom Interviewees' },
-            { 'key': 'rate', 'label': 'Rate (EUR)' },
+            { 'key': 'rate', 'label': 'Rate (EUR)', 'sortable': true },
             { 'key': 'experience', 'label': 'Experience' },
             { 'key': 'potentialProjects', 'label': 'Potential Projects' },
-            { 'key': 'status', 'label': 'Status' },
+            { 'key': 'status', 'label': 'Status', 'sortable': true },
             { 'key': 'notes', 'label': 'Notes' },
             { 'key': 'action', 'label': 'Action' }
         ],
         'intervieweerOptions': ['Eliza', 'Eugene', 'Laura', 'Andrew'],
         'class_add_btn': '[btn btn-info]',
+        'filter': null,
     },
     'methods': {
         'deleteRow': function (personId) {
