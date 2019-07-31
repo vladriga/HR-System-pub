@@ -10,7 +10,75 @@
     <link type="text/css" rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <script src="hr.js" type="text/javascript" defer></script>
 </head>
-<body>
-
+<body style="margin:8px;">
+    <div id="hrSystem">
+        <template>
+            <div>
+                <b-table id="personTbl" :items="persons" :fields="fields" bordered caption-top striped>
+                    <template slot="table-caption">
+                        <strong>HR system</strong>
+                    </template>
+                    <template slot="createdDate" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="namelastname" slot-scope="data">
+                        <div>{{data.item.name}}<br />{{data.item.lastName}}</div>
+                    </template>
+                    <template slot="gender" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="cv" slot-scope="row">
+                        <template v-if="row.item.isCvUploaded">
+                            Uploaded
+                        </template>
+                        <template v-else>
+                            Pending
+                        </template>
+                    </template>
+                    <template slot="interviewDate" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="contact" slot-scope="row">
+                        <template v-if="row.value['skype'] != null">
+                            <b>skype:</b>&nbsp;{{row.value['skype']}}
+                            <br />
+                        </template>
+                        <template v-if="row.value['email'] != null">
+                            <b>email:</b>&nbsp;{{row.value['email']}}
+                            <br />
+                        </template>
+                        <template v-if="row.value['phone'] != null">
+                            <b>phone:</b>&nbsp;{{row.value['phone']}}
+                            <br />
+                        </template>
+                        <template v-if="row.value['other'] != null">
+                            <b>other:</b>&nbsp;{{row.value['other']}}
+                        </template>
+                    </template>
+                    <template slot="position" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="diatomInterviewees" slot-scope="row">
+                        {{row.value.join(', ')}}
+                    </template>
+                    <template slot="rate" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="experience" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="potentialProjects" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="status" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                    <template slot="notes" slot-scope="row">
+                        {{row.value}}
+                    </template>
+                </b-table>
+            </div>
+        </template>
+    </div>
 </body>
 </html>
